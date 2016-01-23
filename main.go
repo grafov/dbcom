@@ -19,7 +19,7 @@ func main() {
 	}
 	defer g.Close()
 
-	g.SetLayout(twoPanels)
+	g.SetLayout(panelsLayout)
 
 	if err = initKeys(g); err != nil {
 		log.Panicln(err)

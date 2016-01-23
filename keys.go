@@ -12,7 +12,7 @@ func initKeys(g *gocui.Gui) error {
 	if err := g.SetKeybinding("", gocui.KeyCtrlR, gocui.ModNone, refresh); err != nil {
 		return err
 	}
-	if err := g.SetKeybinding("", gocui.KeyCtrlO, gocui.ModNone, switchLayout); err != nil {
+	if err := g.SetKeybinding("", gocui.KeyCtrlO, gocui.ModNone, switchPanels); err != nil {
 		return err
 	}
 

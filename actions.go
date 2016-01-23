@@ -17,15 +17,23 @@ func refresh(g *gocui.Gui, v *gocui.View) error {
 	return g.Flush()
 }
 
-var showPanels = true
+var twoPanelsVisible = true
 
-func switchLayout(g *gocui.Gui, v *gocui.View) error {
-	if showPanels {
-		g.SetLayout(twoPanels)
-		showPanels = false
+func switchPanels(g *gocui.Gui, v *gocui.View) error {
+	lp, _ := g.View("lpanel")
+	rp, _ := g.View("rpanel")
+	if twoPanelsVisible {
+		lp.Hide()
+		rp.Hide()
+		g.SetCurrentView("sql")
+		g.ShowCursor = true
+		twoPanelsVisible = false
 	} else {
-		g.SetLayout(sqlPanel)
-		showPanels = true
+		lp.Unhide()
+		rp.Unhide()
+		g.SetCurrentView("lpanel")
+		g.ShowCursor = false
+		twoPanelsVisible = true
 	}
 	return nil
 }

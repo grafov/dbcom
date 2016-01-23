@@ -14,8 +14,10 @@ var (
 )
 
 // sql panel is for exploring queries and log output
-func sqlPanel(g *gocui.Gui) error {
+func panelsLayout(g *gocui.Gui) error {
 	maxX, maxY := g.Size()
+
+	// Panels of sql explorer
 	if splitY == 0 {
 		splitY = maxY - 4
 	}
@@ -38,39 +40,23 @@ func sqlPanel(g *gocui.Gui) error {
 		s.Frame = false
 		fmt.Fprint(s, "")
 	}
-	m, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
-	if err != nil {
-		if err != gocui.ErrUnknownView {
-			return err
-		}
-		m.Frame = false
-		fmt.Fprint(m, "F1 new       F2 edit      F5 copy to clpbrd      F8 delete        F10 exit")
-	}
-	g.SetCurrentView("sql")
-	g.ShowCursor = true
-	return nil
-}
 
-// two panels are for operations on db objects
-func twoPanels(g *gocui.Gui) error {
-	maxX, maxY := g.Size()
-	if splitY == 0 {
-		splitY = maxY - 4
-	}
-	l, err := g.SetView("lpanel", 0, 0, maxX/2-1, maxY-2)
+	// Two panels over sql explorer
+	lp, err := g.SetView("lpanel", 0, 0, maxX/2-1, maxY-2)
 	if err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
-		l.Autoscroll = true
+		lp.Autoscroll = true
 	}
-	r, err := g.SetView("rpanel", maxX/2, 0, maxX-1, maxY-2)
+	rp, err := g.SetView("rpanel", maxX/2, 0, maxX-1, maxY-2)
 	if err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
-		r.Autoscroll = true
+		rp.Autoscroll = true
 	}
+
 	m, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
 	if err != nil {
 		if err != gocui.ErrUnknownView {
@@ -79,7 +65,5 @@ func twoPanels(g *gocui.Gui) error {
 		m.Frame = false
 		fmt.Fprint(m, "F1 new       F2 edit      F5 copy      F8 delete        F10 exit")
 	}
-	g.SetCurrentView("sql")
-	g.ShowCursor = true
 	return nil
 }
