@@ -28,6 +28,8 @@ func panelsLayout(g *gocui.Gui) error {
 		}
 		l.Frame = false
 		l.Autoscroll = true
+		l.BgColor = gocui.ColorBlack
+		l.FgColor = gocui.ColorWhite
 		fmt.Fprintf(l, strings.Repeat("\n", splitY))
 	}
 	s, err := g.SetView("sql", 0, splitY, maxX-1, maxY-2)
@@ -38,6 +40,8 @@ func panelsLayout(g *gocui.Gui) error {
 		s.Editable = true
 		s.Wrap = true
 		s.Frame = false
+		s.BgColor = gocui.ColorBlack
+		s.FgColor = gocui.ColorWhite
 		fmt.Fprint(s, "")
 	}
 
@@ -48,6 +52,8 @@ func panelsLayout(g *gocui.Gui) error {
 			return err
 		}
 		lp.Autoscroll = true
+		lp.BgColor = gocui.ColorCyan
+		lp.Highlight = true
 	}
 	rp, err := g.SetView("rpanel", maxX/2, 0, maxX-1, maxY-2)
 	if err != nil {
@@ -55,15 +61,19 @@ func panelsLayout(g *gocui.Gui) error {
 			return err
 		}
 		rp.Autoscroll = true
+		rp.BgColor = gocui.ColorCyan
+		rp.Highlight = true
 	}
 
-	m, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
+	mp, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
 	if err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
-		m.Frame = false
-		fmt.Fprint(m, "F1 new       F2 edit      F5 copy      F8 delete        F10 exit")
+		mp.Frame = false
+		mp.BgColor = gocui.ColorBlack
+		mp.FgColor = gocui.ColorYellow | gocui.AttrBold
+		fmt.Fprint(mp, "F1 new       F2 edit      F5 copy      F8 delete        F10 exit")
 	}
 	return nil
 }
