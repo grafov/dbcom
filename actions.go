@@ -38,8 +38,8 @@ func switchPanels(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-// cursorDown enlarge sql view when a new line added
-func cursorDown(g *gocui.Gui, v *gocui.View) error {
+// cursorDownEditor enlarge sql view when a new line added
+func cursorDownInEditor(g *gocui.Gui, v *gocui.View) error {
 	x, y := v.Cursor()
 	_, sizeY := v.Size()
 	if y >= sizeY-1 {
@@ -99,4 +99,14 @@ func execQuery(g *gocui.Gui, v *gocui.View) error {
 	log.Write(bytes.Repeat([]byte("─"), logWidth))
 
 	return err
+}
+
+func cursorDown(g *gocui.Gui, v *gocui.View) error {
+	v.MoveCursor(0, 1, true)
+	return nil
+}
+
+func cursorUp(g *gocui.Gui, v *gocui.View) error {
+	v.MoveCursor(0, -1, true)
+	return nil
 }

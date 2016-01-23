@@ -51,18 +51,25 @@ func panelsLayout(g *gocui.Gui) error {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
-		lp.Autoscroll = true
-		lp.BgColor = gocui.ColorBlue
+		//		lp.Autoscroll = true
 		lp.Highlight = true
+		lp.BgColor = gocui.ColorBlue
+		lp.SelBgColor = gocui.ColorYellow
+		lp.SelFgColor = gocui.ColorBlack
+		for i := 1; i < 255; i++ {
+			fmt.Fprintf(lp, " menu item %3d              │                               \n", i)
+		}
 	}
 	rp, err := g.SetView("rpanel", maxX/2, 0, maxX-1, maxY-2)
 	if err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
-		rp.Autoscroll = true
-		rp.BgColor = gocui.ColorBlue
+		//	rp.Autoscroll = true
 		rp.Highlight = true
+		rp.BgColor = gocui.ColorBlue
+		lp.SelBgColor = gocui.ColorYellow
+		lp.SelFgColor = gocui.ColorBlack
 	}
 
 	mp, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
@@ -74,6 +81,11 @@ func panelsLayout(g *gocui.Gui) error {
 		mp.BgColor = gocui.ColorBlack
 		mp.FgColor = gocui.ColorYellow | gocui.AttrBold
 		fmt.Fprint(mp, "F1 new       F2 edit      F5 copy      F8 delete        F10 exit")
+	}
+	if twoPanelsVisible {
+		g.SetCurrentView("lpanel")
+	} else {
+		g.SetCurrentView("sql")
 	}
 	return nil
 }

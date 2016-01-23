@@ -25,8 +25,6 @@ func main() {
 		log.Panicln(err)
 	}
 
-	// TODO show two panes over
-
 	// TODO init db on demand
 
 	// for stub just init test db with hardcoded values
