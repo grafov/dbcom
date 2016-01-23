@@ -20,7 +20,7 @@ type Driver string
 // Values for driver but only MYSQL used yet
 const (
 	MYSQL  = "mysql"
-	PGSQL  = "pgsql"
+	PGSQL  = "postgres"
 	SQLITE = "sqlite3"
 )
 
