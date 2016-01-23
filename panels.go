@@ -52,7 +52,7 @@ func panelsLayout(g *gocui.Gui) error {
 			return err
 		}
 		lp.Autoscroll = true
-		lp.BgColor = gocui.ColorCyan
+		lp.BgColor = gocui.ColorBlue
 		lp.Highlight = true
 	}
 	rp, err := g.SetView("rpanel", maxX/2, 0, maxX-1, maxY-2)
@@ -61,7 +61,7 @@ func panelsLayout(g *gocui.Gui) error {
 			return err
 		}
 		rp.Autoscroll = true
-		rp.BgColor = gocui.ColorCyan
+		rp.BgColor = gocui.ColorBlue
 		rp.Highlight = true
 	}
 
