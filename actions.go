@@ -38,6 +38,15 @@ func cursorDown(g *gocui.Gui, v *gocui.View) error {
 func runQuery(g *gocui.Gui, v *gocui.View) error {
 	dbc := db.Use("test")
 	query := strings.TrimSpace(v.Buffer())
+	v.Reset()
+	fmt.Fprint(v, query)
+	widtgh, height := v.Size()
+	if height > v.LinesCount() {
+		v.SetSize(widtgh, v.LinesCount())
+		_, maxY := g.Size()
+		splitY = maxY - v.LinesCount() - 3
+	}
+	v.SetCursor(0, 0)
 	if len(query) == 0 {
 		return nil
 	}
@@ -66,5 +75,6 @@ func runQuery(g *gocui.Gui, v *gocui.View) error {
 		log.Write([]byte("\n"))
 	}
 	log.Write(bytes.Repeat([]byte("─"), logWidth))
+
 	return err
 }
