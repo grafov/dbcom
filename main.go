@@ -19,7 +19,7 @@ func main() {
 	}
 	defer g.Close()
 
-	g.SetLayout(basePane)
+	g.SetLayout(twoPanels)
 
 	if err = initKeys(g); err != nil {
 		log.Panicln(err)
@@ -34,7 +34,7 @@ func main() {
 		log.Panicln(err)
 	}
 
-	if err = g.MainLoop(); err != nil && err != gocui.Quit {
+	if err = g.MainLoop(); err != nil && err != gocui.ErrQuit {
 		log.Panicln(err)
 
 	}

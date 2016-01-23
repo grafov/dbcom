@@ -10,11 +10,24 @@ import (
 )
 
 func quit(g *gocui.Gui, v *gocui.View) error {
-	return gocui.Quit
+	return gocui.ErrQuit
 }
 
 func refresh(g *gocui.Gui, v *gocui.View) error {
 	return g.Flush()
+}
+
+var showPanels = true
+
+func switchLayout(g *gocui.Gui, v *gocui.View) error {
+	if showPanels {
+		g.SetLayout(twoPanels)
+		showPanels = false
+	} else {
+		g.SetLayout(sqlPanel)
+		showPanels = true
+	}
+	return nil
 }
 
 // cursorDown enlarge sql view when a new line added

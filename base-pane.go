@@ -13,15 +13,15 @@ var (
 	splitY int
 )
 
-// base panel for exploring queries and log output
-func basePane(g *gocui.Gui) error {
+// sql panel is for exploring queries and log output
+func sqlPanel(g *gocui.Gui) error {
 	maxX, maxY := g.Size()
 	if splitY == 0 {
 		splitY = maxY - 4
 	}
 	l, err := g.SetView("log", 0, 0, maxX-1, splitY)
 	if err != nil {
-		if err != gocui.ErrorUnkView {
+		if err != gocui.ErrUnknownView {
 			return err
 		}
 		l.Frame = false
@@ -30,7 +30,7 @@ func basePane(g *gocui.Gui) error {
 	}
 	s, err := g.SetView("sql", 0, splitY, maxX-1, maxY-2)
 	if err != nil {
-		if err != gocui.ErrorUnkView {
+		if err != gocui.ErrUnknownView {
 			return err
 		}
 		s.Editable = true
@@ -40,7 +40,7 @@ func basePane(g *gocui.Gui) error {
 	}
 	m, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
 	if err != nil {
-		if err != gocui.ErrorUnkView {
+		if err != gocui.ErrUnknownView {
 			return err
 		}
 		m.Frame = false
