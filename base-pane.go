@@ -14,10 +14,20 @@ func basePane(g *gocui.Gui) error {
 		if err != gocui.ErrorUnkView {
 			return err
 		}
-		for i := 0; i < maxY-2; i++ {
-			fmt.Fprintln(v, "")
+		v.Frame = false
+		v.Autoscroll = true
+		for i := 0; i < maxY-1; i++ {
+			fmt.Fprint(v, "\n")
 		}
-		fmt.Fprintln(v, "stub > ")
+		fmt.Fprint(v, "stub > ")
+	}
+	m, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
+	if err != nil {
+		if err != gocui.ErrorUnkView {
+			return err
+		}
+		m.Frame = false
+		fmt.Fprint(m, "F1 new       F2 edit      F5 copy to clpbrd      F8 delete        F10 exit")
 	}
 	return nil
 }
