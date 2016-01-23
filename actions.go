@@ -35,7 +35,7 @@ func cursorDown(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-func runQuery(g *gocui.Gui, v *gocui.View) error {
+func execQuery(g *gocui.Gui, v *gocui.View) error {
 	dbc := db.Use("test")
 	query := strings.TrimSpace(v.Buffer())
 	v.Reset()
@@ -62,6 +62,7 @@ func runQuery(g *gocui.Gui, v *gocui.View) error {
 	logWidth, _ := log.Size()
 	log.Write(bytes.Repeat([]byte("─"), logWidth))
 	for rows.Next() {
+		log.Write([]byte("\n"))
 		cols, err := rows.SliceScan()
 		if err != nil {
 			fmt.Fprintln(log, err)
@@ -72,8 +73,8 @@ func runQuery(g *gocui.Gui, v *gocui.View) error {
 			log.Write(col.([]byte))
 			log.Write([]byte("\t"))
 		}
-		log.Write([]byte("\n"))
 	}
+	log.Write([]byte("\n"))
 	log.Write(bytes.Repeat([]byte("─"), logWidth))
 
 	return err
