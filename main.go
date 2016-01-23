@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gophergala2016/dbcom/db"
 	"github.com/grafov/gocui"
 )
 
@@ -25,8 +27,12 @@ func main() {
 
 	// TODO init db on demand
 
-	err = g.MainLoop()
-	if err != nil && err != gocui.Quit {
+	// for stub just init test db with hardcoded values
+	if err = db.Add("test", "mysql", "root:root@localhost/test"); err != nil {
+		log.Panicln(err)
+	}
+
+	if err = g.MainLoop(); err != nil && err != gocui.Quit {
 		log.Panicln(err)
 	}
 }
