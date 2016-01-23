@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/grafov/gocui"
 )
@@ -18,13 +19,14 @@ func basePane(g *gocui.Gui) error {
 	if splitY == 0 {
 		splitY = maxY - 4
 	}
-	v, err := g.SetView("log", 0, 0, maxX-1, splitY)
+	l, err := g.SetView("log", 0, 0, maxX-1, splitY)
 	if err != nil {
 		if err != gocui.ErrorUnkView {
 			return err
 		}
-		v.Frame = false
-		v.Autoscroll = true
+		l.Frame = false
+		l.Autoscroll = true
+		fmt.Fprintf(l, strings.Repeat("\n", splitY))
 	}
 	s, err := g.SetView("sql", 0, splitY, maxX-1, maxY-2)
 	if err != nil {
@@ -34,7 +36,7 @@ func basePane(g *gocui.Gui) error {
 		s.Editable = true
 		s.Wrap = true
 		s.Frame = false
-		fmt.Fprint(s, "stub > ")
+		fmt.Fprint(s, "")
 	}
 	m, err := g.SetView("menu", 0, maxY-2, maxX-1, maxY)
 	if err != nil {

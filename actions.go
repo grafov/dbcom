@@ -1,6 +1,13 @@
 package main
 
-import "github.com/grafov/gocui"
+import (
+	"bytes"
+	"fmt"
+	"strings"
+
+	"github.com/gophergala2016/dbcom/db"
+	"github.com/grafov/gocui"
+)
 
 func quit(g *gocui.Gui, v *gocui.View) error {
 	return gocui.Quit
@@ -26,4 +33,38 @@ func cursorDown(g *gocui.Gui, v *gocui.View) error {
 		v.SetCursor(x, y+1)
 	}
 	return nil
+}
+
+func runQuery(g *gocui.Gui, v *gocui.View) error {
+	dbc := db.Use("test")
+	query := strings.TrimSpace(v.Buffer())
+	if len(query) == 0 {
+		return nil
+	}
+
+	log, _ := g.View("log")
+	rows, err := dbc.Queryx(query)
+	if err != nil {
+		fmt.Fprintln(log, err)
+		return nil
+	}
+
+	fmt.Fprintln(log, "\n", query)
+	logWidth, _ := log.Size()
+	log.Write(bytes.Repeat([]byte("─"), logWidth))
+	for rows.Next() {
+		cols, err := rows.SliceScan()
+		if err != nil {
+			fmt.Fprintln(log, err)
+			err = nil
+			break
+		}
+		for _, col := range cols {
+			log.Write(col.([]byte))
+			log.Write([]byte("\t"))
+		}
+		log.Write([]byte("\n"))
+	}
+	log.Write(bytes.Repeat([]byte("─"), logWidth))
+	return err
 }

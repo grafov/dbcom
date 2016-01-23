@@ -37,3 +37,8 @@ func Add(connName, driverName, dataSourceName string) error {
 	connPool[connName] = &Conn{DB: *db, DSN: dataSourceName, Driver: driverName}
 	return nil
 }
+
+// Use established connection from the pool.
+func Use(name string) *Conn {
+	return connPool[name]
+}

@@ -16,6 +16,8 @@ func initKeys(g *gocui.Gui) error {
 	if err := g.SetKeybinding("sql", gocui.KeyArrowDown, gocui.ModNone, cursorDown); err != nil {
 		return err
 	}
-
+	if err := g.SetKeybinding("sql", gocui.KeyEnter, gocui.ModAlt, runQuery); err != nil {
+		return err
+	}
 	return nil
 }

@@ -14,13 +14,14 @@ func main() {
 
 	// TODO show base pane
 	g := gocui.NewGui()
-	if err := g.Init(); err != nil {
+	if err = g.Init(); err != nil {
 		log.Panicln(err)
 	}
 	defer g.Close()
 
 	g.SetLayout(basePane)
-	if err := initKeys(g); err != nil {
+
+	if err = initKeys(g); err != nil {
 		log.Panicln(err)
 	}
 
@@ -29,11 +30,12 @@ func main() {
 	// TODO init db on demand
 
 	// for stub just init test db with hardcoded values
-	if err = db.Add("test", "mysql", "root:root@localhost/test"); err != nil {
+	if err = db.Add("test", "mysql", "root:root@/test"); err != nil {
 		log.Panicln(err)
 	}
 
 	if err = g.MainLoop(); err != nil && err != gocui.Quit {
 		log.Panicln(err)
+
 	}
 }
