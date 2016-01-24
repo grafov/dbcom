@@ -15,6 +15,9 @@ func initKeys(g *gocui.Gui) error {
 	if err := g.SetKeybinding("", gocui.KeyCtrlO, gocui.ModNone, switchPanels); err != nil {
 		return err
 	}
+	if err := g.SetKeybinding("", gocui.KeyF2, gocui.ModAlt, addSource); err != nil {
+		return err
+	}
 
 	if err := g.SetKeybinding("lpanel", gocui.KeyArrowDown, gocui.ModNone, cursorDown); err != nil {
 		return err

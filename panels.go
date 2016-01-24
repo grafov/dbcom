@@ -14,7 +14,7 @@ var (
 )
 
 // sql panel is for exploring queries and log output
-func panelsLayout(g *gocui.Gui) error {
+func baseLayout(g *gocui.Gui) error {
 	maxX, maxY := g.Size()
 
 	// Panels of sql explorer
@@ -82,6 +82,10 @@ func panelsLayout(g *gocui.Gui) error {
 		mp.FgColor = gocui.ColorYellow | gocui.AttrBold
 		fmt.Fprint(mp, "F1 new       F2 edit      F5 copy      F8 delete        F10 exit")
 	}
+
+	as, _ := g.SetView("addSource", maxX/2-10, maxY/2-2, maxX/2+10, maxY/2+2)
+	as.Hide()
+
 	if twoPanelsVisible {
 		g.SetCurrentView("lpanel")
 	} else {

@@ -110,3 +110,14 @@ func cursorUp(g *gocui.Gui, v *gocui.View) error {
 	v.MoveCursor(0, -1, true)
 	return nil
 }
+
+func addSource(g *gocui.Gui, p *gocui.View) error {
+	v, _ := g.View("addSource")
+	v.Editable = true
+	if v.Visible() {
+		v.Hide()
+	} else {
+		v.Unhide()
+	}
+	return nil
+}
