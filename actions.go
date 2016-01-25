@@ -91,8 +91,10 @@ func execQuery(g *gocui.Gui, v *gocui.View) error {
 			break
 		}
 		for _, col := range cols {
-			log.Write(col.([]byte))
-			log.Write([]byte("\t"))
+			if col != nil {
+				log.Write(col.([]byte))
+				log.Write([]byte("\t"))
+			}
 		}
 	}
 	log.Write([]byte("\n"))
