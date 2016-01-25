@@ -11,4 +11,5 @@ than couple of days so I cancelled my [participation](https://github.com/gopherg
 ## Notes about development
 
 Text UI based on excellent https://github.com/nsf/termbox-go library.
+Work just has started.
 
