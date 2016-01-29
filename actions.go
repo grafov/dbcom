@@ -5,16 +5,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gophergala2016/dbcom/db"
+	"github.com/grafov/dbcom/db"
 	"github.com/grafov/gocui"
 )
 
 func quit(g *gocui.Gui, v *gocui.View) error {
 	return gocui.ErrQuit
-}
-
-func refresh(g *gocui.Gui, v *gocui.View) error {
-	return g.Flush()
 }
 
 var twoPanelsVisible = true
@@ -26,13 +22,13 @@ func switchPanels(g *gocui.Gui, v *gocui.View) error {
 		lp.Hide()
 		rp.Hide()
 		g.SetCurrentView("sql")
-		g.ShowCursor = true
+		g.Cursor = true
 		twoPanelsVisible = false
 	} else {
 		lp.Unhide()
 		rp.Unhide()
 		g.SetCurrentView("lpanel")
-		g.ShowCursor = false
+		g.Cursor = false
 		twoPanelsVisible = true
 	}
 	return nil

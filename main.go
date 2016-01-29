@@ -4,7 +4,7 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/gophergala2016/dbcom/db"
+	"github.com/grafov/dbcom/db"
 	"github.com/grafov/gocui"
 	_ "github.com/jackc/pgx"
 )

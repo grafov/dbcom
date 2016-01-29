@@ -9,9 +9,6 @@ func initKeys(g *gocui.Gui) error {
 	if err := g.SetKeybinding("", gocui.KeyF10, gocui.ModNone, quit); err != nil {
 		return err
 	}
-	if err := g.SetKeybinding("", gocui.KeyCtrlR, gocui.ModNone, refresh); err != nil {
-		return err
-	}
 	if err := g.SetKeybinding("", gocui.KeyCtrlO, gocui.ModNone, switchPanels); err != nil {
 		return err
 	}
